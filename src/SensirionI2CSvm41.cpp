@@ -117,6 +117,29 @@ uint16_t SensirionI2CSvm41::readMeasuredValuesAsIntegers(int16_t& humidity,
     return error;
 }
 
+uint16_t SensirionI2CSvm41::readMeasuredValues(float& humidity,
+                                               float& temperature,
+                                               float& vocIndex,
+                                               float& noxIndex) {
+    uint16_t error;
+    int16_t humidityTicks;
+    int16_t temperatureTicks;
+    int16_t vocTicks;
+    int16_t noxTicks;
+
+    error = readMeasuredValuesAsIntegers(humidityTicks, temperatureTicks,
+                                         vocTicks, noxTicks);
+    if (error) {
+        return error;
+    }
+
+    humidity = static_cast<float>(humidityTicks) / 100.0f;
+    temperature = static_cast<float>(temperatureTicks) / 200.0f;
+    vocIndex = static_cast<float>(vocTicks) / 10.0f;
+    noxIndex = static_cast<float>(noxTicks) / 10.0f;
+    return NoError;
+}
+
 uint16_t SensirionI2CSvm41::readMeasuredRawValues(int16_t& rawHumidity,
                                                   int16_t& rawTemperature,
                                                   uint16_t& rawVocTicks,
@@ -152,8 +175,8 @@ uint16_t SensirionI2CSvm41::readMeasuredRawValues(int16_t& rawHumidity,
     return error;
 }
 
-uint16_t
-SensirionI2CSvm41::setTemperatureOffsetForRhtMeasurements(int16_t tOffset) {
+uint16_t SensirionI2CSvm41::setTemperatureOffsetForRhtMeasurementsTicks(
+    int16_t tOffset) {
     uint16_t error;
     uint8_t buffer[5];
     SensirionI2CTxFrame txFrame(buffer, 5);
@@ -169,7 +192,13 @@ SensirionI2CSvm41::setTemperatureOffsetForRhtMeasurements(int16_t tOffset) {
 }
 
 uint16_t
-SensirionI2CSvm41::getTemperatureOffsetForRhtMeasurements(int16_t& tOffset) {
+SensirionI2CSvm41::setTemperatureOffsetForRhtMeasurements(float tOffset) {
+    int16_t tOffsetTicks = static_cast<int16_t>(tOffset * 200.0f);
+    return setTemperatureOffsetForRhtMeasurementsTicks(tOffsetTicks);
+}
+
+uint16_t SensirionI2CSvm41::getTemperatureOffsetForRhtMeasurementsTicks(
+    int16_t& tOffset) {
     uint16_t error;
     uint8_t buffer[3];
     SensirionI2CTxFrame txFrame(buffer, 3);
@@ -196,6 +225,20 @@ SensirionI2CSvm41::getTemperatureOffsetForRhtMeasurements(int16_t& tOffset) {
 
     error |= rxFrame.getInt16(tOffset);
     return error;
+}
+
+uint16_t
+SensirionI2CSvm41::getTemperatureOffsetForRhtMeasurements(float& tOffset) {
+    uint16_t error;
+    int16_t tOffsetTicks;
+
+    error = getTemperatureOffsetForRhtMeasurementsTicks(tOffsetTicks);
+    if (error) {
+        return error;
+    }
+
+    tOffset = static_cast<float>(tOffsetTicks) / 200.0f;
+    return NoError;
 }
 
 uint16_t SensirionI2CSvm41::setVocAlgorithmTuningParameters(

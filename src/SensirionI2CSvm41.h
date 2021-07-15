@@ -100,6 +100,28 @@ class SensirionI2CSvm41 {
                                           int16_t& vocIndex, int16_t& noxIndex);
 
     /**
+     * readMeasuredValues() - Returns the new measurement results.
+     *
+     * @note This command is only available in measurement mode. The firmware
+     * updates the measurement values every second. Polling data with a faster
+     * sampling rate will return the same values. The first measurement is
+     * available 1 second after the start measurement command is issued. Any
+     * readout prior to this will return zero initialized values.
+     *
+     * @param humidity Compensated ambient humidity in % RH.
+     *
+     * @param temperature Compensated ambient temperature in degrees celsius.
+     *
+     * @param vocIndex VOC algorithm output.
+     *
+     * @param noxIndex NOx algorithm output.
+     *
+     * @return 0 on success, an error code otherwise
+     */
+    uint16_t readMeasuredValues(float& humidity, float& temperature,
+                                float& vocIndex, float& noxIndex);
+
+    /**
      * readMeasuredRawValues() - Returns the measured raw values.
      *
      * @note This command is only available in measurement mode. The firmware
@@ -126,7 +148,7 @@ class SensirionI2CSvm41 {
                                    uint16_t& rawNoxTicks);
 
     /**
-     * setTemperatureOffsetForRhtMeasurements() - Sets the T-Offset for the
+     * setTemperatureOffsetForRhtMeasurementsTicks() - Sets the T-Offset for the
      * temperature compensation of the RHT algorithm.
      *
      * @param tOffset Temperature offset in degrees celsius with a scaling of
@@ -134,18 +156,38 @@ class SensirionI2CSvm41 {
      *
      * @return 0 on success, an error code otherwise
      */
-    uint16_t setTemperatureOffsetForRhtMeasurements(int16_t tOffset);
+    uint16_t setTemperatureOffsetForRhtMeasurementsTicks(int16_t tOffset);
+
+    /**
+     * setTemperatureOffsetForRhtMeasurements() - Sets the T-Offset for the
+     * temperature compensation of the RHT algorithm.
+     *
+     * @param tOffset Temperature offset in degrees celsius.
+     *
+     * @return 0 on success, an error code otherwise
+     */
+    uint16_t setTemperatureOffsetForRhtMeasurements(float tOffset);
+
+    /**
+     * getTemperatureOffsetForRhtMeasurementsTicks() - Gets the T-Offset for the
+     * temperature compensation of the RHT algorithm.
+     *
+     * @param tOffset Temperature offset in degrees celsius with a scaling of
+     * 200.
+     *
+     * @return 0 on success, an error code otherwise
+     */
+    uint16_t getTemperatureOffsetForRhtMeasurementsTicks(int16_t& tOffset);
 
     /**
      * getTemperatureOffsetForRhtMeasurements() - Gets the T-Offset for the
      * temperature compensation of the RHT algorithm.
      *
-     * @param tOffset Temperature offset in degrees celsius with a scaling of
-     * 200.
+     * @param tOffset Temperature offset in degrees celsius.
      *
      * @return 0 on success, an error code otherwise
      */
-    uint16_t getTemperatureOffsetForRhtMeasurements(int16_t& tOffset);
+    uint16_t getTemperatureOffsetForRhtMeasurements(float& tOffset);
 
     /**
      * setVocAlgorithmTuningParameters() - Sets the parameters to customize the
