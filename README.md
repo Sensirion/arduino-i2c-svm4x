@@ -2,9 +2,9 @@
 
 This is the Sensirion SVM41 library for Arduino using the modules I2C interface.
 
-[<center><img src="images/SVM4x.png" width="500px"></center>](https://www.sensirion.com/en/environmental-sensors/evaluation-kit-sek-svm41/)
+[<center><img src="images/SVM4x.png" width="500px"></center>](https://www.sensirion.com/my-sgp-ek/)
 
-Click [here](https://www.sensirion.com/en/environmental-sensors/evaluation-kit-sek-svm41/) to learn more about the SGP41
+Click [here](https://www.sensirion.com/my-sgp-ek/) to learn more about the SGP41
 sensor and the SVM41 Evaluation Kit Board.
 
 # Installation
