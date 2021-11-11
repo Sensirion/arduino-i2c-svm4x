@@ -3,7 +3,7 @@
  *
  * I2C-Generator: 0.3.0
  * Yaml Version: 0.7.1
- * Template Version: 0.7.0-84-g1150250
+ * Template Version: 0.7.0-92-gb5d271c
  */
 /*
  * Copyright (c) 2021, Sensirion AG
@@ -277,17 +277,19 @@ class SensirionI2CSvm41 {
      * @param learningTimeGainHours Time constant to estimate the NOx algorithm
      * gain from the history in hours. Past events will be forgotten after about
      * twice the learning time. Allowed values are in range 1..1000. The default
-     * value is 12 hours.
+     * value is 12 hours. Note that this value is not relevant for NOx algorithm
+     * type.
      *
      * @param gatingMaxDurationMinutes Maximum duration of gating in minutes
      * (freeze of estimator during high NOx index signal). Set to zero to
      * disable the gating. Allowed values are in range 0..3000. The default
-     * value is 180 minutes.
+     * value is 720 minutes.
      *
      * @param stdInitial Initial estimate for standard deviation. Lower value
      * boosts events during initial learning period, but may result in larger
      * device-to-device variations. Allowed values are in range 10..5000. The
-     * default value is 50.
+     * default value is 50. Note that this value is not relevant for NOx
+     * algorithm type.
      *
      * @param gainFactor Gain factor to amplify or to attenuate the VOC index
      * output. Allowed values are in range 1..1000. The default value is 230.
@@ -314,7 +316,8 @@ class SensirionI2CSvm41 {
      *
      * @param learningTimeGainHours Time constant to estimate the NOx Algorithm
      * gain from the history in hours. Past events will be forgotten after about
-     * twice the learning time.
+     * twice the learning time. Note that this value is not relevant for NOx
+     * algorithm type.
      *
      * @param gatingMaxDurationMinutes Maximum duration of gating in minutes
      * (freeze of estimator during high NOx index signal). Zero disables the
@@ -322,7 +325,8 @@ class SensirionI2CSvm41 {
      *
      * @param stdInitial Initial estimate for standard deviation. Lower value
      * boosts events during initial learning period, but may result in larger
-     * device-to-device variations.
+     * device-to-device variations. Note that this value is not relevant for NOx
+     * algorithm type.
      *
      * @param gainFactor Factor to amplify or to attenuate the NOx Index output.
      *
@@ -348,6 +352,10 @@ class SensirionI2CSvm41 {
      * only available in idle mode.
      *
      * @param state Current VOC algorithm state.
+     *
+     * @note Retrieved values can only be used after at least 3 hours of
+     * continuous operation. Restoring the state by calling set voc state
+     * should not be done after interruptions of more than 10 minutes.
      *
      * @return 0 on success, an error code otherwise
      */
