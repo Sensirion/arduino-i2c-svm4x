@@ -1,11 +1,13 @@
-# Sensirion I2C SVM41 Arduino Library
+# Sensirion I2C SVM4x Arduino Library
 
-This is the Sensirion SVM41 library for Arduino using the modules I2C interface.
+This is the Sensirion SVM4x library for Arduino using the modules I2C interface.
 
 [<center><img src="images/SVM4x.png" width="500px"></center>](https://www.sensirion.com/my-sgp-ek/)
 
-Click [here](https://www.sensirion.com/my-sgp-ek/) to learn more about the SGP41
-sensor and the SVM41 Evaluation Kit Board.
+Click [here](https://www.sensirion.com/my-sgp-ek/) to learn more about the SVM4x 
+Evaluation Kit Board.
+The SVM4x evaluation kit covers evaluation of the SGP40 and SGP41 sensors.
+
 
 # Installation
 
@@ -24,18 +26,18 @@ Note: Installation via the Arduino Library Manager is coming soon.
 
 # Quick Start
 
-1. Connect the SVM41 Sensor to your Arduino board's standard I2C bus. Check the pinout of your Arduino board to find the
-   correct pins. The pinout of the SVM41 Sensor board can be found in the data sheet.
+1. Connect the SVM4x Sensor to your Arduino board's standard I2C bus. Check the pinout of your Arduino board to find the
+   correct pins. The pinout of the SVM4x Sensor board can be found in the data sheet.
 
-    * **VDD** of the SEK-SVM41 to the **3.3V** of your Arduino board
-    * **GND** of the SEK-SVM41 to the **GND** of your Arduino board
-    * **SCL** of the SEK-SVM41 to the **SCL** of your Arduino board
-    * **SDA** of the SEK-SVM41 to the **SDA** of your Arduino board
-    * **SEL** of the SEK-SVM41 to another **GND** of your Arduino board
+    * **VDD** of the SEK-SVM4x to the **3.3V** of your Arduino board
+    * **GND** of the SEK-SVM4x to the **GND** of your Arduino board
+    * **SCL** of the SEK-SVM4x to the **SCL** of your Arduino board
+    * **SDA** of the SEK-SVM4x to the **SDA** of your Arduino board
+    * **SEL** of the SEK-SVM4x to another **GND** of your Arduino board
 
 2. Open the `exampleUsage` sample project within the Arduino IDE
 
-   	File => Examples => Sensirion I2C SVM41 => exampleUsage
+   	File => Examples => Sensirion I2C SVM4x => exampleUsage
 
 3. Click the `Upload` button in the Arduino IDE or
 
